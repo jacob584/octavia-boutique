@@ -176,7 +176,16 @@
   footer strong { font-family: Georgia, serif; font-size: 1.1rem; }
 
   /* Family */
-  .family { background: #fff; border-block: var(--line); }
+  .family {
+    background: #fff; border-block: var(--line); position: relative; overflow: hidden;
+    width: 100vw; margin-left: calc(50% - 50vw);
+    padding-left: max(22px, calc((100vw - 1120px) / 2 + 22px));
+    padding-right: max(22px, calc((100vw - 1120px) / 2 + 22px));
+  }
+  .family .float-e { position: absolute; font-size: 2rem; pointer-events: none; animation: bob 4s ease-in-out infinite; }
+  .family .f1 { top: 36px; right: 8%; }
+  .family .f2 { bottom: 40px; left: 6%; animation-delay: 1.5s; }
+  .family .f3 { top: 40%; left: 2%; animation-delay: .8s; font-size: 1.5rem; }
   .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; margin-top: 10px; }
   .step {
     background: var(--paper); border: var(--line); border-radius: 22px; padding: 28px 24px; box-shadow: 6px 6px 0 var(--ink);
@@ -197,6 +206,32 @@
   }
   @media (max-width: 800px) { .timeline { grid-template-columns: 1fr; } }
 
+  /* Extra motion */
+  .progress { position: fixed; top: 0; left: 0; height: 6px; width: 0; z-index: 60;
+    background: linear-gradient(90deg, var(--rose), var(--sun), var(--mint)); }
+  .step { position: relative; z-index: 1; }
+  .timeline::before {
+    content: ""; position: absolute; top: 50%; left: 6%; right: 6%; height: 4px; z-index: 0;
+    background: repeating-linear-gradient(90deg, var(--ink) 0 14px, transparent 14px 26px);
+    animation: dash 1s linear infinite;
+  }
+  .step:hover .yr { animation: pulse-pop .5s ease; }
+  .award {
+    background: linear-gradient(110deg, var(--sun) 35%, #fff3b0 50%, var(--sun) 65%);
+    background-size: 220% 100%; animation: shimmer 3s linear infinite;
+  }
+  .sparkle { display: inline-block; margin-left: 8px; animation: spin 3s linear infinite; }
+  .sticker:hover { animation-play-state: paused; transform: rotate(0deg) scale(1.15); }
+  .btn:hover { animation: wiggle .45s ease; }
+  @media (max-width: 800px) { .timeline::before { display: none; } }
+
+  @keyframes dash { to { background-position: 40px 0; } }
+  @keyframes shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-14px) rotate(10deg); } }
+  @keyframes pulse-pop { 0% { transform: scale(1); } 50% { transform: scale(1.25) rotate(-4deg); } 100% { transform: scale(1); } }
+  @keyframes wiggle { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+
   /* Keyframes */
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
@@ -215,6 +250,7 @@
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
 <div class="wrap">
   <header class="topbar">
@@ -234,7 +270,7 @@
       <h1><span class="word">Dress</span> <span class="word">for</span> <span class="word">the</span> <span class="pop word">life</span> <span class="word">you</span> <span class="word">love.</span></h1>
       <p>A friendly women's boutique in the Village of Cross Keys, with curated designer pieces, statement accessories and fun finds you didn't know you needed.</p>
       <div class="cta">
-        <a class="btn btn-rose" href="#visit">Plan a visit</a>
+        <a class="btn btn-rose" href="#visit" data-confetti>Plan a visit</a>
         <a class="btn btn-white" href="#reviews">Read reviews</a>
       </div>
     </div>
@@ -257,6 +293,7 @@
 
 <div class="wrap">
   <section id="family" class="family" style="padding-bottom:60px;">
+    <span class="float-e f1">🧵</span><span class="float-e f2">👗</span><span class="float-e f3">💛</span>
     <h2 class="heading reveal">A family business, four generations strong.</h2>
     <p class="lede reveal">Octavia Boutique was started by founder Octavia Dugan. Today Betsy Wendell carries the legacy forward, and the family's fourth generation is part of the team.</p>
     <div class="timeline">
@@ -264,7 +301,7 @@
       <div class="step reveal"><span class="yr">Today</span><h3>Betsy Wendell</h3><p>Carries the legacy of founder Octavia Dugan and leads the boutique.</p></div>
       <div class="step reveal"><span class="yr">Now</span><h3>Fourth generation</h3><p>The family's fourth generation has joined the team at the boutique.</p></div>
     </div>
-    <div class="award reveal">🏆 Recognized in the 2026 Family-Owned Business Awards</div>
+    <div class="award reveal">🏆 Recognized in the 2026 Family-Owned Business Awards <span class="sparkle">✨</span></div>
   </section>
   <section style="padding-bottom:40px;">
     <div class="stats reveal">
@@ -443,6 +480,34 @@
     el.style.transitionDelay = ((i % 4) * 0.08) + "s";
     io.observe(el);
   });
+
+  // Scroll progress bar
+  const bar = document.getElementById("progress");
+  window.addEventListener("scroll", () => {
+    const h = document.documentElement;
+    const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + "%";
+  }, { passive: true });
+
+  // Confetti burst on the Plan a visit button
+  const COLORS = ["#ef4f7d", "#ffc233", "#3ccfb4", "#7d4bd6"];
+  function burst(el) {
+    const r = el.getBoundingClientRect();
+    for (let i = 0; i < 28; i++) {
+      const c = document.createElement("span");
+      c.style.cssText = `position:fixed;left:${r.left + r.width / 2}px;top:${r.top + r.height / 2}px;width:10px;height:10px;` +
+        `background:${COLORS[i % 4]};border:2px solid #2a1830;border-radius:${i % 2 ? "50%" : "2px"};pointer-events:none;z-index:99;` +
+        `transition:transform 1s cubic-bezier(.1,.8,.3,1), opacity 1s;`;
+      document.body.appendChild(c);
+      const ang = Math.random() * Math.PI * 2, d = 80 + Math.random() * 120;
+      requestAnimationFrame(() => {
+        c.style.transform = `translate(${Math.cos(ang) * d}px,${Math.sin(ang) * d}px) rotate(${Math.random() * 720}deg)`;
+        c.style.opacity = "0";
+      });
+      setTimeout(() => c.remove(), 1100);
+    }
+  }
+  document.querySelectorAll("[data-confetti]").forEach(el => el.addEventListener("click", e => burst(e.currentTarget)));
 
   // Count-up for the stats
   function countUp(root) {
