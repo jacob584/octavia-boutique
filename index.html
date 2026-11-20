@@ -19,7 +19,6 @@
     background: var(--paper); color: var(--ink);
     font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif; line-height: 1.6; overflow-x: hidden;
   }
-  .serif { font-family: Georgia, "Times New Roman", serif; }
   a { color: inherit; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
 
@@ -32,9 +31,9 @@
   .brand em { color: var(--rose); font-style: normal; }
   .topbar nav a {
     text-decoration: none; font-weight: bold; margin-left: 16px; padding: 6px 12px; border-radius: 999px;
-    border: 2px solid var(--ink); background: #fff; font-size: 0.92rem;
+    border: 2px solid var(--ink); background: #fff; font-size: 0.92rem; transition: background .2s, transform .2s;
   }
-  .topbar nav a:hover { background: var(--sun); }
+  .topbar nav a:hover { background: var(--sun); transform: translateY(-2px); }
   @media (max-width: 620px) { .topbar nav { display: none; } }
 
   /* Hero */
@@ -42,28 +41,38 @@
   .eyebrow {
     display: inline-block; background: var(--mint); border: 2px solid var(--ink); border-radius: 999px;
     padding: 4px 14px; font-weight: bold; font-size: 0.9rem; box-shadow: 4px 4px 0 var(--ink);
+    animation: drop .6s ease both;
   }
-  .hero h1 { font-family: Georgia, serif; font-size: clamp(2.8rem, 6.4vw, 5rem); line-height: 1.02; margin: 18px 0; }
-  .hero h1 .pop { background: var(--sun); padding: 0 10px; border: 3px solid var(--ink); border-radius: 14px; display: inline-block; transform: rotate(-2deg); }
-  .hero p { font-size: 1.18rem; max-width: 520px; }
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .hero h1 {
+    font-family: Georgia, serif; font-size: clamp(2.8rem, 6.4vw, 5rem); line-height: 1.02; margin: 18px 0;
+  }
+  .hero h1 .word { display: inline-block; opacity: 0; transform: translateY(24px); animation: rise .6s ease forwards; }
+  .hero h1 .pop {
+    background: var(--sun); padding: 0 10px; border: 3px solid var(--ink); border-radius: 14px;
+    display: inline-block; transform: rotate(-2deg); animation: wobble 4s ease-in-out 1.2s infinite;
+  }
+  .hero p { font-size: 1.18rem; max-width: 520px; animation: fade .8s ease .5s both; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; animation: fade .8s ease .7s both; }
   .btn {
     display: inline-block; text-decoration: none; font-weight: bold; padding: 13px 22px; border-radius: 14px;
     border: var(--line); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s;
   }
   .btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+  .btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
   .btn-rose { background: var(--rose); color: #fff; }
   .btn-white { background: #fff; }
   .polaroid {
     background: #fff; border: var(--line); padding: 14px 14px 46px; box-shadow: 10px 10px 0 var(--ink);
-    transform: rotate(3deg); position: relative;
+    transform: rotate(3deg); position: relative; animation: pop-in .9s cubic-bezier(.2,1.4,.4,1) .3s both;
   }
+  .polaroid:hover { transform: rotate(0deg) scale(1.02); }
   .polaroid img { width: 100%; height: 340px; object-fit: cover; border: 2px solid var(--ink); }
   .polaroid .cap { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font-family: Georgia, serif; font-style: italic; }
   .sticker {
     position: absolute; top: -18px; right: -14px; width: 104px; height: 104px; border-radius: 50%;
     background: var(--violet); color: #fff; border: var(--line); display: flex; align-items: center; justify-content: center;
     text-align: center; font-weight: bold; font-size: 0.9rem; transform: rotate(12deg); box-shadow: 4px 4px 0 var(--ink);
+    animation: spin-bob 6s ease-in-out infinite;
   }
   @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .polaroid { transform: rotate(1deg); margin-top: 20px; } }
 
@@ -72,15 +81,19 @@
   .ticker-track { display: inline-block; padding: 14px 0; animation: slide 26s linear infinite; font-weight: bold; font-size: 1.05rem; }
   .ticker-track span { margin: 0 26px; }
   .ticker-track span.star { color: var(--sun); }
-  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   section { padding: 72px 0; }
   .heading { font-family: Georgia, serif; font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.1; margin-bottom: 10px; }
   .lede { font-size: 1.1rem; max-width: 640px; margin-bottom: 36px; }
 
-  /* Stats row */
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Stats */
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .stat { background: #fff; border: var(--line); border-radius: 20px; padding: 24px 16px; text-align: center; box-shadow: 6px 6px 0 var(--ink); }
+  .stat { background: #fff; border: var(--line); border-radius: 20px; padding: 24px 16px; text-align: center; box-shadow: 6px 6px 0 var(--ink); transition: transform .2s; }
+  .stat:hover { transform: translateY(-6px) rotate(-1deg); }
   .stat:nth-child(1) { background: var(--sun); }
   .stat:nth-child(2) { background: var(--mint); }
   .stat:nth-child(3) { background: #ffd6e3; }
@@ -93,7 +106,8 @@
   .story { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
   .story p { margin-bottom: 16px; font-size: 1.05rem; }
   .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-  .tags span { border: 2px solid var(--ink); border-radius: 999px; padding: 6px 14px; font-weight: bold; background: #fff; }
+  .tags span { border: 2px solid var(--ink); border-radius: 999px; padding: 6px 14px; font-weight: bold; background: #fff; transition: transform .2s; }
+  .tags span:hover { transform: scale(1.08) rotate(-2deg); }
   .tags span:nth-child(4n+1) { background: #ffe0ea; }
   .tags span:nth-child(4n+2) { background: #d9fff7; }
   .tags span:nth-child(4n+3) { background: #fff1b8; }
@@ -101,24 +115,32 @@
 
   /* Reviews */
   .reviews { background: var(--mint); border-block: var(--line); }
-  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-  .rv { background: #fff; border: var(--line); border-radius: 22px; padding: 26px; box-shadow: 6px 6px 0 var(--ink); position: relative; }
-  .rv:nth-child(2) { transform: rotate(-1deg); }
-  .rv:nth-child(4) { transform: rotate(1deg); }
-  .rv .big-q { font-family: Georgia, serif; font-size: 3.4rem; line-height: .5; color: var(--rose); height: 26px; }
-  .rv blockquote { font-family: Georgia, serif; font-size: 1.15rem; font-style: italic; margin: 6px 0 16px; }
-  .rv .who { font-weight: bold; }
-  .rv .src { font-size: 0.82rem; color: #6d5a74; }
-  .rv .reply { margin-top: 14px; background: #fff4bf; border: 2px solid var(--ink); border-radius: 14px; padding: 10px 12px; font-size: 0.92rem; }
   .score-line { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-weight: bold; margin-bottom: 26px; font-size: 1.05rem; }
   .score-line .pill { background: var(--sun); border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; }
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+  .rv {
+    background: #fff; border: var(--line); border-radius: 22px; padding: 26px; box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .rv:hover { transform: translate(-4px,-4px) rotate(-1deg); box-shadow: 10px 10px 0 var(--ink); }
+  .rv .stars { color: var(--sun); font-size: 1.4rem; letter-spacing: 3px; text-shadow: 2px 2px 0 var(--ink); display: inline-block; }
+  .rv:hover .stars span { animation: twinkle .6s ease both; display: inline-block; }
+  .rv:hover .stars span:nth-child(2) { animation-delay: .08s; }
+  .rv:hover .stars span:nth-child(3) { animation-delay: .16s; }
+  .rv:hover .stars span:nth-child(4) { animation-delay: .24s; }
+  .rv:hover .stars span:nth-child(5) { animation-delay: .32s; }
+  .rv blockquote { font-family: Georgia, serif; font-size: 1.12rem; font-style: italic; margin: 12px 0 16px; }
+  .rv .who { font-weight: bold; }
+  .rv .src { font-size: 0.82rem; color: #6d5a74; }
 
   /* Services */
   .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .svc { border: var(--line); border-radius: 22px; padding: 26px 20px; background: #fff; box-shadow: 6px 6px 0 var(--ink); }
+  .svc { border: var(--line); border-radius: 22px; padding: 26px 20px; background: #fff; box-shadow: 6px 6px 0 var(--ink); transition: transform .25s; }
+  .svc:hover { transform: translateY(-8px) rotate(1deg); }
   .svc:nth-child(1) { background: #ffe0ea; } .svc:nth-child(2) { background: #fff1b8; }
   .svc:nth-child(3) { background: #d9fff7; } .svc:nth-child(4) { background: #e2d4ff; }
-  .svc .e { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+  .svc .e { font-size: 2.4rem; display: inline-block; margin-bottom: 8px; transition: transform .4s; }
+  .svc:hover .e { transform: rotate(-12deg) scale(1.2); }
   .svc h3 { font-family: Georgia, serif; font-size: 1.25rem; margin-bottom: 6px; }
   .svc p { font-size: 0.97rem; }
   @media (max-width: 900px) { .services { grid-template-columns: repeat(2, 1fr); } }
@@ -128,27 +150,46 @@
   .gallery { background: var(--ink); color: var(--paper); border-block: var(--line); }
   .gallery .heading { color: var(--paper); }
   .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-  .gallery figure { background: #fff; color: var(--ink); border: var(--line); border-radius: 16px; overflow: hidden; cursor: zoom-in; transition: transform .2s; }
-  .gallery figure:hover { transform: rotate(-1.5deg) scale(1.02); }
+  .gallery figure {
+    background: #fff; color: var(--ink); border: var(--line); border-radius: 16px; overflow: hidden; cursor: zoom-in;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .gallery figure:hover { transform: rotate(-1.5deg) scale(1.03); box-shadow: 8px 8px 0 var(--sun); }
   .gallery img { width: 100%; height: 300px; object-fit: cover; display: block; }
   .gallery figcaption { padding: 12px; font-weight: bold; text-align: center; }
   .lb { position: fixed; inset: 0; background: rgba(42,24,48,.94); display: none; align-items: center; justify-content: center; padding: 22px; z-index: 50; cursor: zoom-out; }
-  .lb.open { display: flex; }
+  .lb.open { display: flex; animation: fade .25s ease; }
   .lb img { max-width: 92vw; max-height: 88vh; border: 6px solid #fff; border-radius: 14px; }
 
   /* Visit */
   .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-  .card { border: var(--line); border-radius: 22px; padding: 28px; background: #fff; box-shadow: 6px 6px 0 var(--ink); }
+  .card { border: var(--line); border-radius: 22px; padding: 28px; background: #fff; box-shadow: 6px 6px 0 var(--ink); transition: transform .25s; }
+  .card:hover { transform: translateY(-6px); }
   .card h3 { font-family: Georgia, serif; font-size: 1.5rem; margin-bottom: 12px; }
   .card p, .card li { font-size: 1.05rem; margin-bottom: 8px; list-style: none; }
   .card a.phone { font-weight: bold; color: var(--rose); }
   .card .note { font-size: 0.9rem; color: #6d5a74; margin-top: 10px; }
+  .card .dirlink { font-weight: bold; color: var(--rose); }
   @media (max-width: 800px) { .visit { grid-template-columns: 1fr; } }
 
   footer { border-top: var(--line); padding: 30px 0; text-align: center; font-size: 0.95rem; }
   footer strong { font-family: Georgia, serif; font-size: 1.1rem; }
 
-  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  /* Keyframes */
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @keyframes drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pop-in { from { opacity: 0; transform: rotate(3deg) scale(.8); } to { opacity: 1; transform: rotate(3deg) scale(1); } }
+  @keyframes wobble { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+  @keyframes spin-bob { 0%,100% { transform: rotate(12deg) translateY(0); } 50% { transform: rotate(-6deg) translateY(-8px); } }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes twinkle { 0% { transform: scale(1); } 50% { transform: scale(1.5) rotate(15deg); } 100% { transform: scale(1); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    .hero h1 .word { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -168,7 +209,7 @@
   <section class="hero" id="top">
     <div>
       <span class="eyebrow">Family-owned since 1965</span>
-      <h1>Dress for the <span class="pop">life</span> you love.</h1>
+      <h1><span class="word">Dress</span> <span class="word">for</span> <span class="word">the</span> <span class="pop word">life</span> <span class="word">you</span> <span class="word">love.</span></h1>
       <p>A friendly women's boutique in the Village of Cross Keys, with curated designer pieces, statement accessories and fun finds you didn't know you needed.</p>
       <div class="cta">
         <a class="btn btn-rose" href="#visit">Plan a visit</a>
@@ -194,16 +235,16 @@
 
 <div class="wrap">
   <section style="padding-bottom:40px;">
-    <div class="stats">
-      <div class="stat"><div class="n">4.9</div><div class="l">Google rating</div></div>
-      <div class="stat"><div class="n">162</div><div class="l">Google reviews</div></div>
-      <div class="stat"><div class="n">1965</div><div class="l">Serving Baltimore since</div></div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n" data-count="4.9" data-dec="1">4.9</div><div class="l">Google rating</div></div>
+      <div class="stat"><div class="n" data-count="162">162</div><div class="l">Google reviews</div></div>
+      <div class="stat"><div class="n" data-count="1965">1965</div><div class="l">Serving Baltimore since</div></div>
       <div class="stat"><div class="n">4th</div><div class="l">Family generation</div></div>
     </div>
   </section>
 
   <section id="story" style="padding-top:20px;">
-    <div class="story">
+    <div class="story reveal">
       <div>
         <h2 class="heading">We've done the curating. You get the fun.</h2>
         <p>Octavia Boutique started with founder Octavia Dugan. Today Betsy Wendell carries the legacy forward, and the fourth generation of the family is now part of the team.</p>
@@ -227,82 +268,87 @@
 
 <section class="reviews" id="reviews">
   <div class="wrap">
-    <h2 class="heading">Shoppers say it best.</h2>
-    <div class="score-line">
+    <h2 class="heading reveal">Shoppers say it best.</h2>
+    <div class="score-line reveal">
       <span class="pill">4.9 ★ on Google</span>
       <span>from 162 reviews · 4.7 on Yelp</span>
     </div>
     <div class="review-grid">
-      <div class="rv">
-        <div class="big-q">“</div>
-        <blockquote>An absolute gem! Every visit feels like discovering something new.</blockquote>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“An absolute gem! Every visit feels like discovering something new.”</blockquote>
         <div class="who">Natallia I.</div>
         <div class="src">Google review</div>
       </div>
-      <div class="rv">
-        <div class="big-q">“</div>
-        <blockquote>They are first class in all areas. I was literally the belle of the wedding.</blockquote>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“They are first class in all areas. I was literally the belle of the wedding.”</blockquote>
         <div class="who">Betsie R.</div>
         <div class="src">Google review · gown altered to tea-length for a niece's wedding</div>
       </div>
-      <div class="rv">
-        <div class="big-q">“</div>
-        <blockquote>They make you feel so special.</blockquote>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“A place that would be perfect for a classy lady.”</blockquote>
+        <div class="who">Lexy M.</div>
+        <div class="src">Google review · loved the tiger purse</div>
+      </div>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“They make you feel so special.”</blockquote>
         <div class="who">Bev L.</div>
         <div class="src">Google review</div>
       </div>
-      <div class="rv">
-        <div class="big-q">“</div>
-        <blockquote>I used to think of Octavia as 'too fancy'... I was wrong.</blockquote>
-        <div class="who">Wendy S.</div>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“The clothes are wonderful! I always find tops, pants and dresses that are unique.”</blockquote>
+        <div class="who">Marsha O.</div>
         <div class="src">Google review</div>
-        <div class="reply"><strong>Octavia Boutique replied:</strong> Being your first stop is truly the ultimate compliment.</div>
       </div>
-      <div class="rv">
-        <div class="big-q">“</div>
-        <blockquote>A place that would be perfect for a classy lady. The tiger purse was gorgeous.</blockquote>
-        <div class="who">Lexy M.</div>
+      <div class="rv reveal">
+        <div class="stars" aria-label="5 out of 5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <blockquote>“Octavia outdid themselves today! I felt completely comfortable and appreciated.”</blockquote>
+        <div class="who">Mary Z.</div>
         <div class="src">Google review</div>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <section id="services">
   <div class="wrap">
-    <h2 class="heading">Little extras, big smiles.</h2>
-    <p class="lede">Everything you need to leave looking your best, even after you get home.</p>
+    <h2 class="heading reveal">Little extras, big smiles.</h2>
+    <p class="lede reveal">Everything you need to leave looking your best, even after you get home.</p>
     <div class="services">
-      <div class="svc"><span class="e">🧵</span><h3>Alterations</h3><p>In-store tailoring so your piece fits just right, from hemlines to your big day.</p></div>
-      <div class="svc"><span class="e">📦</span><h3>In-store pickup</h3><p>Shop online and pick up in the boutique for a quick, easy visit.</p></div>
-      <div class="svc"><span class="e">💐</span><h3>Event dressing</h3><p>Mother-of-the-bride, wedding guest and special-occasion looks.</p></div>
-      <div class="svc"><span class="e">💬</span><h3>Styling tips</h3><p>Our image consultants share tricks to help you look and feel your best.</p></div>
+      <div class="svc reveal"><span class="e">🧵</span><h3>Alterations</h3><p>In-store tailoring so your piece fits just right, from hemlines to your big day.</p></div>
+      <div class="svc reveal"><span class="e">📦</span><h3>In-store pickup</h3><p>Shop online and pick up in the boutique for a quick, easy visit.</p></div>
+      <div class="svc reveal"><span class="e">💐</span><h3>Event dressing</h3><p>Mother-of-the-bride, wedding guest and special-occasion looks.</p></div>
+      <div class="svc reveal"><span class="e">💬</span><h3>Styling tips</h3><p>Our image consultants share tricks to help you look and feel your best.</p></div>
     </div>
   </div>
 </section>
 
 <section class="gallery" id="photos">
   <div class="wrap">
-    <h2 class="heading">Peek inside 📸</h2>
-    <p class="lede">Click a photo to see it bigger.</p>
+    <h2 class="heading reveal">Peek inside 📸</h2>
+    <p class="lede reveal">Click a photo to see it bigger.</p>
     <div class="gallery-grid" id="grid"></div>
   </div>
 </section>
 
 <section id="visit">
   <div class="wrap">
-    <h2 class="heading">Come say hello.</h2>
-    <p class="lede">Tucked into The Village of Cross Keys, Baltimore.</p>
+    <h2 class="heading reveal">Come say hello.</h2>
+    <p class="lede reveal">Tucked into The Village of Cross Keys, Baltimore.</p>
     <div class="visit">
-      <div class="card">
+      <div class="card reveal">
         <h3>Find us</h3>
         <ul>
           <li>📍 94 Village Square, Baltimore, MD 21210</li>
           <li>📞 <a class="phone" href="tel:+14103233066">(410) 323-3066</a></li>
         </ul>
-        <p class="note"><a href="https://www.google.com/maps/search/?api=1&amp;query=94+Village+Square+Baltimore+MD+21210" target="_blank" rel="noopener">Get directions →</a></p>
+        <p class="note"><a class="dirlink" href="https://www.google.com/maps/search/?api=1&amp;query=94+Village+Square+Baltimore+MD+21210" target="_blank" rel="noopener">Get directions →</a></p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <h3>Hours</h3>
         <ul>
           <li>🛍️ Open 7 days a week</li>
@@ -325,6 +371,7 @@
 <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
+  // Store photos. Add more by adding a line here and the file to images/.
   const PHOTOS = [
     { src: "images/storefront.jpg", caption: "Our storefront in the Village of Cross Keys", alt: "Octavia Boutique storefront with colorful dresses in the windows" },
     { src: "images/photo-1.jpg", caption: "Dresses and gowns on the racks", alt: "Racks of colorful dresses and gowns inside the boutique" },
@@ -338,12 +385,50 @@
   const lbimg = document.getElementById("lbimg");
   PHOTOS.forEach(p => {
     const f = document.createElement("figure");
+    f.className = "reveal";
     f.innerHTML = `<img src="${p.src}" alt="${p.alt}" loading="lazy"><figcaption>${p.caption}</figcaption>`;
     f.addEventListener("click", () => { lbimg.src = p.src; lbimg.alt = p.alt; lb.classList.add("open"); });
     grid.appendChild(f);
   });
   lb.addEventListener("click", () => lb.classList.remove("open"));
   document.addEventListener("keydown", e => { if (e.key === "Escape") lb.classList.remove("open"); });
+
+  // Split the hero headline into words for the entrance animation
+  // (words are already wrapped in markup; this just staggers their delays)
+  document.querySelectorAll(".hero h1 .word").forEach((w, i) => { w.style.animationDelay = (0.1 + i * 0.12) + "s"; });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add("in");
+        io.unobserve(en.target);
+        countUp(en.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el, i) => {
+    el.style.transitionDelay = ((i % 4) * 0.08) + "s";
+    io.observe(el);
+  });
+
+  // Count-up for the stats
+  function countUp(root) {
+    root.querySelectorAll("[data-count]").forEach(el => {
+      const target = parseFloat(el.dataset.count);
+      const dec = parseInt(el.dataset.dec || "0", 10);
+      const dur = 1200;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = (target * eased).toFixed(dec);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(dec);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
 </script>
 </body>
 </html>
