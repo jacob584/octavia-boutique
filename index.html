@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Octavia Boutique · The Village of Cross Keys, Baltimore</title>
+<style>
+  :root {
+    --paper: #fdf3ea;
+    --ink: #2a1830;
+    --rose: #ef4f7d;
+    --sun: #ffc233;
+    --mint: #3ccfb4;
+    --violet: #7d4bd6;
+    --line: 3px solid var(--ink);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif; line-height: 1.6; overflow-x: hidden;
+  }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+
+  /* Top bar */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 16px 0; border-bottom: var(--line); background: var(--paper); position: sticky; top: 0; z-index: 20;
+  }
+  .brand { font-family: Georgia, serif; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+  .brand em { color: var(--rose); font-style: normal; }
+  .topbar nav a {
+    text-decoration: none; font-weight: bold; margin-left: 16px; padding: 6px 12px; border-radius: 999px;
+    border: 2px solid var(--ink); background: #fff; font-size: 0.92rem;
+  }
+  .topbar nav a:hover { background: var(--sun); }
+  @media (max-width: 620px) { .topbar nav { display: none; } }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 64px 0 40px; }
+  .eyebrow {
+    display: inline-block; background: var(--mint); border: 2px solid var(--ink); border-radius: 999px;
+    padding: 4px 14px; font-weight: bold; font-size: 0.9rem; box-shadow: 4px 4px 0 var(--ink);
+  }
+  .hero h1 { font-family: Georgia, serif; font-size: clamp(2.8rem, 6.4vw, 5rem); line-height: 1.02; margin: 18px 0; }
+  .hero h1 .pop { background: var(--sun); padding: 0 10px; border: 3px solid var(--ink); border-radius: 14px; display: inline-block; transform: rotate(-2deg); }
+  .hero p { font-size: 1.18rem; max-width: 520px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: bold; padding: 13px 22px; border-radius: 14px;
+    border: var(--line); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+  .btn-rose { background: var(--rose); color: #fff; }
+  .btn-white { background: #fff; }
+  .polaroid {
+    background: #fff; border: var(--line); padding: 14px 14px 46px; box-shadow: 10px 10px 0 var(--ink);
+    transform: rotate(3deg); position: relative;
+  }
+  .polaroid img { width: 100%; height: 340px; object-fit: cover; border: 2px solid var(--ink); }
+  .polaroid .cap { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font-family: Georgia, serif; font-style: italic; }
+  .sticker {
+    position: absolute; top: -18px; right: -14px; width: 104px; height: 104px; border-radius: 50%;
+    background: var(--violet); color: #fff; border: var(--line); display: flex; align-items: center; justify-content: center;
+    text-align: center; font-weight: bold; font-size: 0.9rem; transform: rotate(12deg); box-shadow: 4px 4px 0 var(--ink);
+  }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .polaroid { transform: rotate(1deg); margin-top: 20px; } }
+
+  /* Ticker */
+  .ticker { background: var(--ink); color: var(--paper); overflow: hidden; white-space: nowrap; border-block: var(--line); }
+  .ticker-track { display: inline-block; padding: 14px 0; animation: slide 26s linear infinite; font-weight: bold; font-size: 1.05rem; }
+  .ticker-track span { margin: 0 26px; }
+  .ticker-track span.star { color: var(--sun); }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  section { padding: 72px 0; }
+  .heading { font-family: Georgia, serif; font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.1; margin-bottom: 10px; }
+  .lede { font-size: 1.1rem; max-width: 640px; margin-bottom: 36px; }
+
+  /* Stats row */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stat { background: #fff; border: var(--line); border-radius: 20px; padding: 24px 16px; text-align: center; box-shadow: 6px 6px 0 var(--ink); }
+  .stat:nth-child(1) { background: var(--sun); }
+  .stat:nth-child(2) { background: var(--mint); }
+  .stat:nth-child(3) { background: #ffd6e3; }
+  .stat:nth-child(4) { background: #e2d4ff; }
+  .stat .n { font-family: Georgia, serif; font-size: 2.4rem; font-weight: bold; }
+  .stat .l { font-size: 0.95rem; }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* Story */
+  .story { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .story p { margin-bottom: 16px; font-size: 1.05rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .tags span { border: 2px solid var(--ink); border-radius: 999px; padding: 6px 14px; font-weight: bold; background: #fff; }
+  .tags span:nth-child(4n+1) { background: #ffe0ea; }
+  .tags span:nth-child(4n+2) { background: #d9fff7; }
+  .tags span:nth-child(4n+3) { background: #fff1b8; }
+  @media (max-width: 800px) { .story { grid-template-columns: 1fr; } }
+
+  /* Reviews */
+  .reviews { background: var(--mint); border-block: var(--line); }
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .rv { background: #fff; border: var(--line); border-radius: 22px; padding: 26px; box-shadow: 6px 6px 0 var(--ink); position: relative; }
+  .rv:nth-child(2) { transform: rotate(-1deg); }
+  .rv:nth-child(4) { transform: rotate(1deg); }
+  .rv .big-q { font-family: Georgia, serif; font-size: 3.4rem; line-height: .5; color: var(--rose); height: 26px; }
+  .rv blockquote { font-family: Georgia, serif; font-size: 1.15rem; font-style: italic; margin: 6px 0 16px; }
+  .rv .who { font-weight: bold; }
+  .rv .src { font-size: 0.82rem; color: #6d5a74; }
+  .rv .reply { margin-top: 14px; background: #fff4bf; border: 2px solid var(--ink); border-radius: 14px; padding: 10px 12px; font-size: 0.92rem; }
+  .score-line { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-weight: bold; margin-bottom: 26px; font-size: 1.05rem; }
+  .score-line .pill { background: var(--sun); border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .svc { border: var(--line); border-radius: 22px; padding: 26px 20px; background: #fff; box-shadow: 6px 6px 0 var(--ink); }
+  .svc:nth-child(1) { background: #ffe0ea; } .svc:nth-child(2) { background: #fff1b8; }
+  .svc:nth-child(3) { background: #d9fff7; } .svc:nth-child(4) { background: #e2d4ff; }
+  .svc .e { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+  .svc h3 { font-family: Georgia, serif; font-size: 1.25rem; margin-bottom: 6px; }
+  .svc p { font-size: 0.97rem; }
+  @media (max-width: 900px) { .services { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .services { grid-template-columns: 1fr; } }
+
+  /* Gallery */
+  .gallery { background: var(--ink); color: var(--paper); border-block: var(--line); }
+  .gallery .heading { color: var(--paper); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .gallery figure { background: #fff; color: var(--ink); border: var(--line); border-radius: 16px; overflow: hidden; cursor: zoom-in; transition: transform .2s; }
+  .gallery figure:hover { transform: rotate(-1.5deg) scale(1.02); }
+  .gallery img { width: 100%; height: 300px; object-fit: cover; display: block; }
+  .gallery figcaption { padding: 12px; font-weight: bold; text-align: center; }
+  .lb { position: fixed; inset: 0; background: rgba(42,24,48,.94); display: none; align-items: center; justify-content: center; padding: 22px; z-index: 50; cursor: zoom-out; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 92vw; max-height: 88vh; border: 6px solid #fff; border-radius: 14px; }
+
+  /* Visit */
+  .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .card { border: var(--line); border-radius: 22px; padding: 28px; background: #fff; box-shadow: 6px 6px 0 var(--ink); }
+  .card h3 { font-family: Georgia, serif; font-size: 1.5rem; margin-bottom: 12px; }
+  .card p, .card li { font-size: 1.05rem; margin-bottom: 8px; list-style: none; }
+  .card a.phone { font-weight: bold; color: var(--rose); }
+  .card .note { font-size: 0.9rem; color: #6d5a74; margin-top: 10px; }
+  @media (max-width: 800px) { .visit { grid-template-columns: 1fr; } }
+
+  footer { border-top: var(--line); padding: 30px 0; text-align: center; font-size: 0.95rem; }
+  footer strong { font-family: Georgia, serif; font-size: 1.1rem; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="#top">Octavia <em>Boutique</em></a>
+    <nav>
+      <a href="#story">Story</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#services">Services</a>
+      <a href="#photos">Photos</a>
+      <a href="#visit">Visit</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div>
+      <span class="eyebrow">Family-owned since 1965</span>
+      <h1>Dress for the <span class="pop">life</span> you love.</h1>
+      <p>A friendly women's boutique in the Village of Cross Keys, with curated designer pieces, statement accessories and fun finds you didn't know you needed.</p>
+      <div class="cta">
+        <a class="btn btn-rose" href="#visit">Plan a visit</a>
+        <a class="btn btn-white" href="#reviews">Read reviews</a>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <div class="polaroid">
+        <img src="images/storefront.jpg" alt="Octavia Boutique storefront with colorful dresses in the windows">
+        <div class="sticker">60+<br>years!</div>
+        <div class="cap">Come say hello at 94 Village Square</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Designer finds</span><span class="star">★</span><span>Statement accessories</span><span class="star">★</span><span>In-store alterations</span><span class="star">★</span><span>Online orders, in-store pickup</span><span class="star">★</span><span>Curated for the classy lady</span><span class="star">★</span>
+    <span>Designer finds</span><span class="star">★</span><span>Statement accessories</span><span class="star">★</span><span>In-store alterations</span><span class="star">★</span><span>Online orders, in-store pickup</span><span class="star">★</span><span>Curated for the classy lady</span><span class="star">★</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section style="padding-bottom:40px;">
+    <div class="stats">
+      <div class="stat"><div class="n">4.9</div><div class="l">Google rating</div></div>
+      <div class="stat"><div class="n">162</div><div class="l">Google reviews</div></div>
+      <div class="stat"><div class="n">1965</div><div class="l">Serving Baltimore since</div></div>
+      <div class="stat"><div class="n">4th</div><div class="l">Family generation</div></div>
+    </div>
+  </section>
+
+  <section id="story" style="padding-top:20px;">
+    <div class="story">
+      <div>
+        <h2 class="heading">We've done the curating. You get the fun.</h2>
+        <p>Octavia Boutique started with founder Octavia Dugan. Today Betsy Wendell carries the legacy forward, and the fourth generation of the family is now part of the team.</p>
+        <p>Our merchandise changes with the seasons and the latest trends, and our team loves helping you find the look that feels most like you.</p>
+      </div>
+      <div>
+        <div class="tags">
+          <span>Designers from Canada</span>
+          <span>Italy</span>
+          <span>Israel</span>
+          <span>United States</span>
+          <span>Luxury labels</span>
+          <span>Statement accessories</span>
+          <span>Mother-of-the-bride</span>
+          <span>Wedding guest</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <h2 class="heading">Shoppers say it best.</h2>
+    <div class="score-line">
+      <span class="pill">4.9 ★ on Google</span>
+      <span>from 162 reviews · 4.7 on Yelp</span>
+    </div>
+    <div class="review-grid">
+      <div class="rv">
+        <div class="big-q">“</div>
+        <blockquote>An absolute gem! Every visit feels like discovering something new.</blockquote>
+        <div class="who">Natallia I.</div>
+        <div class="src">Google review</div>
+      </div>
+      <div class="rv">
+        <div class="big-q">“</div>
+        <blockquote>They are first class in all areas. I was literally the belle of the wedding.</blockquote>
+        <div class="who">Betsie R.</div>
+        <div class="src">Google review · gown altered to tea-length for a niece's wedding</div>
+      </div>
+      <div class="rv">
+        <div class="big-q">“</div>
+        <blockquote>They make you feel so special.</blockquote>
+        <div class="who">Bev L.</div>
+        <div class="src">Google review</div>
+      </div>
+      <div class="rv">
+        <div class="big-q">“</div>
+        <blockquote>I used to think of Octavia as 'too fancy'... I was wrong.</blockquote>
+        <div class="who">Wendy S.</div>
+        <div class="src">Google review</div>
+        <div class="reply"><strong>Octavia Boutique replied:</strong> Being your first stop is truly the ultimate compliment.</div>
+      </div>
+      <div class="rv">
+        <div class="big-q">“</div>
+        <blockquote>A place that would be perfect for a classy lady. The tiger purse was gorgeous.</blockquote>
+        <div class="who">Lexy M.</div>
+        <div class="src">Google review</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <h2 class="heading">Little extras, big smiles.</h2>
+    <p class="lede">Everything you need to leave looking your best, even after you get home.</p>
+    <div class="services">
+      <div class="svc"><span class="e">🧵</span><h3>Alterations</h3><p>In-store tailoring so your piece fits just right, from hemlines to your big day.</p></div>
+      <div class="svc"><span class="e">📦</span><h3>In-store pickup</h3><p>Shop online and pick up in the boutique for a quick, easy visit.</p></div>
+      <div class="svc"><span class="e">💐</span><h3>Event dressing</h3><p>Mother-of-the-bride, wedding guest and special-occasion looks.</p></div>
+      <div class="svc"><span class="e">💬</span><h3>Styling tips</h3><p>Our image consultants share tricks to help you look and feel your best.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="photos">
+  <div class="wrap">
+    <h2 class="heading">Peek inside 📸</h2>
+    <p class="lede">Click a photo to see it bigger.</p>
+    <div class="gallery-grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap">
+    <h2 class="heading">Come say hello.</h2>
+    <p class="lede">Tucked into The Village of Cross Keys, Baltimore.</p>
+    <div class="visit">
+      <div class="card">
+        <h3>Find us</h3>
+        <ul>
+          <li>📍 94 Village Square, Baltimore, MD 21210</li>
+          <li>📞 <a class="phone" href="tel:+14103233066">(410) 323-3066</a></li>
+        </ul>
+        <p class="note"><a href="https://www.google.com/maps/search/?api=1&amp;query=94+Village+Square+Baltimore+MD+21210" target="_blank" rel="noopener">Get directions →</a></p>
+      </div>
+      <div class="card">
+        <h3>Hours</h3>
+        <ul>
+          <li>🛍️ Open 7 days a week</li>
+          <li>🕙 Weekdays until 6 PM</li>
+          <li>🌞 Sundays 10 AM – 4 PM</li>
+        </ul>
+        <p class="note">Holiday hours may change, so give us a call before you visit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>Octavia Boutique</strong>
+    <div>The Village of Cross Keys · 94 Village Square · Baltimore, MD 21210</div>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<script>
+  const PHOTOS = [
+    { src: "images/storefront.jpg", caption: "Our storefront in the Village of Cross Keys", alt: "Octavia Boutique storefront with colorful dresses in the windows" }
+  ];
+  const grid = document.getElementById("grid");
+  const lb = document.getElementById("lb");
+  const lbimg = document.getElementById("lbimg");
+  PHOTOS.forEach(p => {
+    const f = document.createElement("figure");
+    f.innerHTML = `<img src="${p.src}" alt="${p.alt}" loading="lazy"><figcaption>${p.caption}</figcaption>`;
+    f.addEventListener("click", () => { lbimg.src = p.src; lbimg.alt = p.alt; lb.classList.add("open"); });
+    grid.appendChild(f);
+  });
+  lb.addEventListener("click", () => lb.classList.remove("open"));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") lb.classList.remove("open"); });
+</script>
+</body>
+</html>
