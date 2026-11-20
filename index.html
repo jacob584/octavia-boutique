@@ -232,6 +232,45 @@
   @keyframes pulse-pop { 0% { transform: scale(1); } 50% { transform: scale(1.25) rotate(-4deg); } 100% { transform: scale(1); } }
   @keyframes wiggle { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
 
+  /* Mobile layout */
+  @media (max-width: 620px) {
+    .wrap { padding: 0 16px; }
+    .topbar { padding: 12px 0; gap: 8px; }
+    .brand { font-size: 1.25rem; }
+    .topbar nav {
+      display: flex; width: 100%; overflow-x: auto; gap: 8px; padding-bottom: 2px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .topbar nav::-webkit-scrollbar { display: none; }
+    .topbar nav a { margin-left: 0; white-space: nowrap; padding: 8px 14px; font-size: 0.88rem; flex: 0 0 auto; }
+    .hero { padding: 36px 0 24px; gap: 28px; }
+    .hero h1 { font-size: clamp(2.2rem, 11vw, 2.8rem); }
+    .hero p { font-size: 1.05rem; }
+    .cta { flex-direction: column; }
+    .cta .btn { text-align: center; width: 100%; }
+    .polaroid { padding: 10px 10px 40px; box-shadow: 6px 6px 0 var(--ink); }
+    .polaroid img { height: 240px; }
+    .sticker { width: 84px; height: 84px; font-size: 0.8rem; top: -14px; right: -6px; }
+    section { padding: 48px 0; }
+    .heading { font-size: clamp(1.8rem, 8vw, 2.2rem); }
+    .lede { font-size: 1rem; margin-bottom: 26px; }
+    .stat { padding: 18px 12px; box-shadow: 4px 4px 0 var(--ink); }
+    .stat .n { font-size: 2rem; }
+    .stat .l { font-size: 0.85rem; }
+    .stats { gap: 12px; }
+    .step { padding: 22px 18px; }
+    .award { font-size: 0.9rem; padding: 10px 16px; display: block; text-align: center; }
+    .rv { padding: 22px; }
+    .rv blockquote { font-size: 1.05rem; }
+    .svc { padding: 22px 18px; }
+    .gallery img { height: 240px; }
+    .card { padding: 22px; }
+    .card h3 { font-size: 1.3rem; }
+    .ticker-track { font-size: 0.95rem; }
+    .btn { padding: 12px 18px; }
+    .tags span { font-size: 0.9rem; padding: 5px 12px; }
+  }
+
   /* Keyframes */
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
