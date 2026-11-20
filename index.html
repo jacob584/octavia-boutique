@@ -482,6 +482,12 @@
     io.observe(el);
   });
 
+  // Always open at the very top of the page
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  window.addEventListener("load", () => window.scrollTo(0, 0));
+  window.scrollTo(0, 0);
+
   // Logo always returns to the very top of the page
   document.getElementById("home-link").addEventListener("click", e => {
     e.preventDefault();
