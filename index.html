@@ -175,6 +175,28 @@
   footer { border-top: var(--line); padding: 30px 0; text-align: center; font-size: 0.95rem; }
   footer strong { font-family: Georgia, serif; font-size: 1.1rem; }
 
+  /* Family */
+  .family { background: #fff; border-block: var(--line); }
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; margin-top: 10px; }
+  .step {
+    background: var(--paper); border: var(--line); border-radius: 22px; padding: 28px 24px; box-shadow: 6px 6px 0 var(--ink);
+    transition: transform .25s ease;
+  }
+  .step:hover { transform: translateY(-6px) rotate(-1deg); }
+  .step:nth-child(2) { background: #d9fff7; }
+  .step:nth-child(3) { background: #fff1b8; }
+  .step .yr {
+    display: inline-block; background: var(--rose); color: #fff; border: 2px solid var(--ink); border-radius: 999px;
+    padding: 4px 14px; font-weight: bold; margin-bottom: 12px;
+  }
+  .step h3 { font-family: Georgia, serif; font-size: 1.4rem; margin-bottom: 8px; }
+  .step p { font-size: 1rem; }
+  .award {
+    margin-top: 30px; display: inline-block; background: var(--sun); border: var(--line); border-radius: 999px;
+    padding: 12px 22px; font-weight: bold; box-shadow: 5px 5px 0 var(--ink); transform: rotate(-1deg);
+  }
+  @media (max-width: 800px) { .timeline { grid-template-columns: 1fr; } }
+
   /* Keyframes */
   @keyframes rise { to { opacity: 1; transform: none; } }
   @keyframes drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
@@ -198,7 +220,7 @@
   <header class="topbar">
     <a class="brand" href="#top">Octavia <em>Boutique</em></a>
     <nav>
-      <a href="#story">Story</a>
+      <a href="#family">Our family</a>
       <a href="#reviews">Reviews</a>
       <a href="#services">Services</a>
       <a href="#photos">Photos</a>
@@ -208,7 +230,7 @@
 
   <section class="hero" id="top">
     <div>
-      <span class="eyebrow">Family-owned since 1965</span>
+      <span class="eyebrow">Family-owned since 1965 · Four generations</span>
       <h1><span class="word">Dress</span> <span class="word">for</span> <span class="word">the</span> <span class="pop word">life</span> <span class="word">you</span> <span class="word">love.</span></h1>
       <p>A friendly women's boutique in the Village of Cross Keys, with curated designer pieces, statement accessories and fun finds you didn't know you needed.</p>
       <div class="cta">
@@ -228,12 +250,22 @@
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>Designer finds</span><span class="star">★</span><span>Statement accessories</span><span class="star">★</span><span>In-store alterations</span><span class="star">★</span><span>Online orders, in-store pickup</span><span class="star">★</span><span>Curated for the classy lady</span><span class="star">★</span>
+    <span>Designer finds</span><span class="star">★</span><span>Statement accessories</span><span class="star">★</span><span>In-store alterations</span><span class="star">★</span><span>Online orders, in-store pickup</span><span class="star">★</span><span>Curated for the classy lady</span><span class="star">★</span><span>Family-owned since 1965</span><span class="star">★</span>
     <span>Designer finds</span><span class="star">★</span><span>Statement accessories</span><span class="star">★</span><span>In-store alterations</span><span class="star">★</span><span>Online orders, in-store pickup</span><span class="star">★</span><span>Curated for the classy lady</span><span class="star">★</span>
   </div>
 </div>
 
 <div class="wrap">
+  <section id="family" class="family" style="padding-bottom:60px;">
+    <h2 class="heading reveal">A family business, four generations strong.</h2>
+    <p class="lede reveal">Octavia Boutique was started by founder Octavia Dugan. Today Betsy Wendell carries the legacy forward, and the family's fourth generation is part of the team.</p>
+    <div class="timeline">
+      <div class="step reveal"><span class="yr">1965</span><h3>The founder</h3><p>Octavia Dugan started the boutique, and it has been dressing Baltimore ever since.</p></div>
+      <div class="step reveal"><span class="yr">Today</span><h3>Betsy Wendell</h3><p>Carries the legacy of founder Octavia Dugan and leads the boutique.</p></div>
+      <div class="step reveal"><span class="yr">Now</span><h3>Fourth generation</h3><p>The family's fourth generation has joined the team at the boutique.</p></div>
+    </div>
+    <div class="award reveal">🏆 Recognized in the 2026 Family-Owned Business Awards</div>
+  </section>
   <section style="padding-bottom:40px;">
     <div class="stats reveal">
       <div class="stat"><div class="n" data-count="4.9" data-dec="1">4.9</div><div class="l">Google rating</div></div>
